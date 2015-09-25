@@ -32,7 +32,7 @@ namespace SportsStore.Tests
             ProductController controller = new ProductController(mock.Object);
             controller.PageSize = 3;
 
-            ProductsListViewModel result = (ProductsListViewModel)controller.List(2).Model;
+            ProductsListViewModel result = (ProductsListViewModel)controller.List(null,2).Model;
 
             Product[] productArray = result.Products.ToArray();
             Assert.IsTrue(productArray.Length == 2);
@@ -82,7 +82,7 @@ namespace SportsStore.Tests
             ProductController controller = new ProductController(mock.Object);
             controller.PageSize = 3;
 
-            ProductsListViewModel result = (ProductsListViewModel) controller.List(2).Model;
+            ProductsListViewModel result = (ProductsListViewModel) controller.List(null,2).Model;
 
             PagingInfo pageInfo = result.PagingInfo;
             Assert.AreEqual(2,pageInfo.CurrentPage);
