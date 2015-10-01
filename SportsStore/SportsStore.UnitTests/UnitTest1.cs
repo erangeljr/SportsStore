@@ -90,5 +90,27 @@ namespace SportsStore.Tests
             Assert.AreEqual(5, pageInfo.TotalItems);
             Assert.AreEqual(2, pageInfo.TotalPages);
         }
+
+        [TestMethod]
+        public void Can_Create_Categories()
+        {
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[]
+            {
+                new Product { ProductId = 1, Name = "P1", Category = "Apples"},
+                new Product { ProductId = 2, Name = "P2", Category = "Apples"},
+                new Product { ProductId = 3, Name = "P3", Category = "Plums"},
+                new Product { ProductId = 4, Name = "P4", Category = "Oranges"},
+            });
+
+            NavController controller = new NavController(mock.Object);
+            string[] results = ((IEnumerable<string>) controller.Menu().Model).ToArray();
+
+            Assert.AreEqual(3, results.Length);
+            Assert.AreEqual("Apples",results[0]);
+            Assert.AreEqual("Oranges", results[1]);
+            Assert.AreEqual("Plums", results[2]);
+
+        }
     }
 }
